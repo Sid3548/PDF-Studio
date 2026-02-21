@@ -1,0 +1,612 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PDF Studio</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <header class="hero">
+        <div class="hero-main">
+          <p class="eyebrow">PDF STUDIO</p>
+          <h1>Clean, Labeled PDF Editor</h1>
+          <p class="lead">
+            Built for simple flow like Smallpdf: upload once, choose a clearly labeled tool, preview the result, and download.
+          </p>
+        </div>
+
+        <div class="hero-steps">
+          <h2>How It Works</h2>
+          <p><strong>Step 1:</strong> Upload your source PDF.</p>
+          <p><strong>Step 2:</strong> Pick a tool from the left taskbar.</p>
+          <p><strong>Step 3:</strong> Edit in popup and preview output.</p>
+          <p><strong>Step 4:</strong> Download or keep editing.</p>
+        </div>
+      </header>
+
+      <section id="status" class="status" aria-live="polite">Ready. Upload a PDF and choose a tool from the left taskbar.</section>
+
+      <section class="main-grid">
+        <aside class="tools-board">
+          <div class="tools-head">
+            <h2>Tools</h2>
+            <p class="muted">Left taskbar. Click any option to open its popup editor.</p>
+          </div>
+
+          <section class="tool-lane">
+            <h3>Page Organize</h3>
+            <div class="tool-grid">
+              <button class="tool-btn" data-tool="rotate">
+                <span class="tool-title">Rotate Pages</span>
+                <span class="tool-desc">Rotate selected pages by 90, 180, or 270 degrees.</span>
+              </button>
+              <button class="tool-btn" data-tool="reorder">
+                <span class="tool-title">Reorder Pages</span>
+                <span class="tool-desc">Set exact page order for the full document.</span>
+              </button>
+              <button class="tool-btn" data-tool="reverse">
+                <span class="tool-title">Reverse Pages</span>
+                <span class="tool-desc">Flip page order from last page to first page.</span>
+              </button>
+              <button class="tool-btn" data-tool="duplicate">
+                <span class="tool-title">Duplicate Pages</span>
+                <span class="tool-desc">Duplicate any pages with custom copy count.</span>
+              </button>
+              <button class="tool-btn" data-tool="delete-pages">
+                <span class="tool-title">Delete Pages</span>
+                <span class="tool-desc">Remove selected pages safely.</span>
+              </button>
+              <button class="tool-btn" data-tool="extract-pages">
+                <span class="tool-title">Extract Pages</span>
+                <span class="tool-desc">Create a new PDF from selected pages only.</span>
+              </button>
+              <button class="tool-btn" data-tool="split">
+                <span class="tool-title">Split PDF</span>
+                <span class="tool-desc">Split into multiple PDFs and download as ZIP.</span>
+              </button>
+              <button class="tool-btn" data-tool="merge">
+                <span class="tool-title">Merge PDFs</span>
+                <span class="tool-desc">Combine multiple PDFs into one file.</span>
+              </button>
+            </div>
+          </section>
+
+          <section class="tool-lane">
+            <h3>Text and Layout</h3>
+            <div class="tool-grid">
+              <button class="tool-btn featured" data-tool="visual-text-editor">
+                <span class="tool-title">Visual Text Editor</span>
+                <span class="tool-desc">Interactive edit: click text to edit or click anywhere to add text.</span>
+              </button>
+              <button class="tool-btn" data-tool="add-text">
+                <span class="tool-title">Add Text (Manual)</span>
+                <span class="tool-desc">Add text using page coordinates.</span>
+              </button>
+              <button class="tool-btn" data-tool="replace-text">
+                <span class="tool-title">Find and Replace Text</span>
+                <span class="tool-desc">Replace repeated words or phrases across pages.</span>
+              </button>
+              <button class="tool-btn" data-tool="watermark">
+                <span class="tool-title">Add Watermark</span>
+                <span class="tool-desc">Apply repeated text watermark across all pages.</span>
+              </button>
+              <button class="tool-btn" data-tool="page-numbers">
+                <span class="tool-title">Add Page Numbers</span>
+                <span class="tool-desc">Insert page numbers in your preferred position.</span>
+              </button>
+              <button class="tool-btn" data-tool="crop">
+                <span class="tool-title">Crop Pages</span>
+                <span class="tool-desc">Trim margins or focus on selected page area.</span>
+              </button>
+              <button class="tool-btn" data-tool="metadata">
+                <span class="tool-title">Update Metadata</span>
+                <span class="tool-desc">Set title, author, subject, and keywords.</span>
+              </button>
+              <button class="tool-btn" data-tool="optimize">
+                <span class="tool-title">Optimize File Size</span>
+                <span class="tool-desc">Compress and clean PDF for lighter output.</span>
+              </button>
+            </div>
+          </section>
+
+          <section class="tool-lane">
+            <h3>Convert and Security</h3>
+            <div class="tool-grid">
+              <button class="tool-btn" data-tool="pdf-to-images">
+                <span class="tool-title">PDF to Images</span>
+                <span class="tool-desc">Convert pages to PNG or JPG and download ZIP.</span>
+              </button>
+              <button class="tool-btn" data-tool="images-to-pdf">
+                <span class="tool-title">Images to PDF</span>
+                <span class="tool-desc">Turn multiple images into a single PDF.</span>
+              </button>
+              <button class="tool-btn" data-tool="encrypt">
+                <span class="tool-title">Encrypt PDF</span>
+                <span class="tool-desc">Password-protect PDF with permission controls.</span>
+              </button>
+              <button class="tool-btn" data-tool="decrypt">
+                <span class="tool-title">Decrypt PDF</span>
+                <span class="tool-desc">Remove password protection using valid password.</span>
+              </button>
+            </div>
+          </section>
+        </aside>
+
+        <section class="workspace">
+          <div class="workspace-top">
+            <h2>Workspace</h2>
+            <p class="muted">Your current source and latest result live here so you can edit in sequence.</p>
+          </div>
+
+          <div class="source-loader">
+            <label>Source PDF
+              <input id="workspaceFile" type="file" accept="application/pdf" />
+            </label>
+            <button id="clearSourceBtn" type="button" class="secondary">Clear Source</button>
+            <button id="useResultBtn" type="button" disabled>Use Result as Source</button>
+            <button id="downloadResultBtn" type="button" disabled>Download Latest Result</button>
+          </div>
+
+          <div class="preview-grid">
+            <article class="preview-card">
+              <h3>Current Source</h3>
+              <p id="sourceMeta" class="meta">No source loaded.</p>
+              <iframe id="sourcePreview" title="Source preview"></iframe>
+            </article>
+
+            <article class="preview-card">
+              <h3>Latest Result</h3>
+              <p id="resultMeta" class="meta">No result yet.</p>
+              <iframe id="resultPreview" title="Result preview"></iframe>
+            </article>
+          </div>
+        </section>
+      </section>
+    </main>
+
+    <div id="toolModal" class="modal hidden" aria-hidden="true">
+      <div class="modal-backdrop" data-close-modal="true"></div>
+      <section id="modalPanel" class="modal-panel" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+        <header class="modal-header">
+          <h2 id="modalTitle">Tool</h2>
+          <button type="button" id="modalCloseBtn" class="secondary">Close</button>
+        </header>
+
+        <div class="modal-content-grid">
+          <div id="modalFormHost" class="modal-form-host"></div>
+
+          <div class="modal-preview">
+            <article class="modal-preview-card">
+              <h3>Before</h3>
+              <p id="modalBeforeMeta" class="meta">Load a source file in workspace or this form.</p>
+              <iframe id="modalBeforePreview" title="Before preview"></iframe>
+            </article>
+
+            <article class="modal-preview-card">
+              <h3>After</h3>
+              <p id="modalAfterMeta" class="meta">Run this tool to preview output.</p>
+              <iframe id="modalAfterPreview" title="After preview"></iframe>
+            </article>
+
+            <div class="modal-actions">
+              <button id="modalDownloadBtn" type="button" disabled>Download Output</button>
+              <button id="modalUseResultBtn" type="button" disabled>Use Output as Source</button>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <template id="tpl-visual-text-editor">
+      <section class="visual-editor-shell" data-tool-name="Visual Text Editor">
+        <p class="hint">
+          Fully interactive mode: click existing text to edit, or switch to add mode and click anywhere to insert new text.
+          Scanned PDFs are auto-flagged and locked.
+        </p>
+
+        <div class="ve-row">
+          <label>PDF file (optional, leave blank to use Workspace source)
+            <input type="file" data-ve-role="file-input" accept="application/pdf" />
+          </label>
+          <button type="button" data-ve-action="analyze">Analyze PDF</button>
+        </div>
+
+        <div class="ve-status-row">
+          <p class="ve-badge" data-ve-role="scan-badge">Not analyzed</p>
+          <p class="ve-message" data-ve-role="scan-message">Analyze to start visual text editing.</p>
+        </div>
+
+        <div class="ve-toolbar">
+          <div class="ve-nav">
+            <button type="button" class="secondary" data-ve-action="prev-page">Prev Page</button>
+            <p class="ve-page-indicator" data-ve-role="page-indicator">Page - / -</p>
+            <button type="button" class="secondary" data-ve-action="next-page">Next Page</button>
+          </div>
+
+          <div class="ve-mode-wrap">
+            <label class="ve-radio">
+              <input type="radio" name="ve-mode" value="edit" data-ve-role="mode-edit" checked />
+              Edit existing text
+            </label>
+            <label class="ve-radio">
+              <input type="radio" name="ve-mode" value="add" data-ve-role="mode-add" />
+              Add new text on click
+            </label>
+          </div>
+        </div>
+
+        <div class="ve-viewer" data-ve-role="viewer">
+          <div class="ve-stage" data-ve-role="stage">
+            <img data-ve-role="page-image" alt="PDF page preview" />
+            <div class="ve-overlay" data-ve-role="overlay"></div>
+            <div class="ve-add-marker hidden" data-ve-role="add-marker"></div>
+          </div>
+        </div>
+
+        <div class="ve-edit-card">
+          <p class="ve-selection" data-ve-role="selection-label">No text selected.</p>
+          <label data-ve-role="text-label">Edit selected text
+            <textarea data-ve-role="new-text" rows="3" placeholder="Select a text box above first."></textarea>
+          </label>
+          <div class="inline-2">
+            <label>Font size
+              <input type="number" step="0.5" min="1" data-ve-role="font-size" />
+            </label>
+            <label>Padding (for replacement box)
+              <input type="number" step="0.5" min="0" value="2" data-ve-role="padding" />
+            </label>
+          </div>
+          <div class="inline-2">
+            <label>Add text color
+              <input type="color" value="#000000" data-ve-role="add-color" />
+            </label>
+            <div></div>
+          </div>
+          <button type="button" data-ve-action="apply-edit">Apply Change</button>
+        </div>
+      </section>
+    </template>
+
+    <template id="tpl-rotate">
+      <form class="tool-form" data-endpoint="/api/rotate" data-tool-name="Rotate Pages">
+        <p class="hint">Choose a PDF here, or leave blank to use Workspace source.</p>
+        <label>PDF file (optional)
+          <input type="file" name="file" accept="application/pdf" />
+        </label>
+        <label>Pages (blank = all)
+          <input type="text" name="pages" placeholder="1,3,5-8" />
+        </label>
+        <label>Angle
+          <select name="angle" required>
+            <option value="90">90°</option>
+            <option value="180">180°</option>
+            <option value="270">270°</option>
+            <option value="-90">-90°</option>
+          </select>
+        </label>
+        <button type="submit">Apply Rotation</button>
+      </form>
+    </template>
+
+    <template id="tpl-reorder">
+      <form class="tool-form" data-endpoint="/api/reorder" data-tool-name="Reorder Pages">
+        <p class="hint">Choose a PDF here, or leave blank to use Workspace source.</p>
+        <label>PDF file (optional)
+          <input type="file" name="file" accept="application/pdf" />
+        </label>
+        <label>New order
+          <input type="text" name="order" placeholder="3,1,2,4" required />
+        </label>
+        <button type="submit">Reorder</button>
+      </form>
+    </template>
+
+    <template id="tpl-reverse">
+      <form class="tool-form" data-endpoint="/api/reverse" data-tool-name="Reverse Pages">
+        <p class="hint">Choose a PDF here, or leave blank to use Workspace source.</p>
+        <label>PDF file (optional)
+          <input type="file" name="file" accept="application/pdf" />
+        </label>
+        <button type="submit">Reverse Page Order</button>
+      </form>
+    </template>
+
+    <template id="tpl-duplicate">
+      <form class="tool-form" data-endpoint="/api/duplicate-pages" data-tool-name="Duplicate Pages">
+        <p class="hint">Choose a PDF here, or leave blank to use Workspace source.</p>
+        <label>PDF file (optional)
+          <input type="file" name="file" accept="application/pdf" />
+        </label>
+        <label>Pages to duplicate
+          <input type="text" name="pages" placeholder="2,4-5" required />
+        </label>
+        <label>Extra copies per page (1-10)
+          <input type="number" min="1" max="10" name="copies" value="1" />
+        </label>
+        <button type="submit">Duplicate Pages</button>
+      </form>
+    </template>
+
+    <template id="tpl-delete-pages">
+      <form class="tool-form" data-endpoint="/api/delete-pages" data-tool-name="Delete Pages">
+        <p class="hint">Choose a PDF here, or leave blank to use Workspace source.</p>
+        <label>PDF file (optional)
+          <input type="file" name="file" accept="application/pdf" />
+        </label>
+        <label>Pages to delete
+          <input type="text" name="pages" placeholder="2,4-6" required />
+        </label>
+        <button type="submit">Delete</button>
+      </form>
+    </template>
+
+    <template id="tpl-extract-pages">
+      <form class="tool-form" data-endpoint="/api/extract-pages" data-tool-name="Extract Pages">
+        <p class="hint">Choose a PDF here, or leave blank to use Workspace source.</p>
+        <label>PDF file (optional)
+          <input type="file" name="file" accept="application/pdf" />
+        </label>
+        <label>Pages to extract
+          <input type="text" name="pages" placeholder="1-3,8" required />
+        </label>
+        <button type="submit">Extract</button>
+      </form>
+    </template>
+
+    <template id="tpl-split">
+      <form class="tool-form" data-endpoint="/api/split" data-tool-name="Split PDF">
+        <p class="hint">Choose a PDF here, or leave blank to use Workspace source.</p>
+        <label>PDF file (optional)
+          <input type="file" name="file" accept="application/pdf" />
+        </label>
+        <label>Split groups (blank = one file per page)
+          <input type="text" name="groups" placeholder="1-2;3-5;6" />
+        </label>
+        <button type="submit">Split to ZIP</button>
+      </form>
+    </template>
+
+    <template id="tpl-merge">
+      <form class="tool-form" data-endpoint="/api/merge" data-tool-name="Merge PDFs" data-no-source-fallback="true">
+        <p class="hint">Select multiple PDF files. Their order becomes the merged order.</p>
+        <label>PDF files
+          <input type="file" name="files" accept="application/pdf" multiple required />
+        </label>
+        <button type="submit">Merge</button>
+      </form>
+    </template>
+
+    <template id="tpl-add-text">
+      <form class="tool-form" data-endpoint="/api/add-text" data-tool-name="Add Text">
+        <p class="hint">Choose a PDF here, or leave blank to use Workspace source.</p>
+        <label>PDF file (optional)
+          <input type="file" name="file" accept="application/pdf" />
+        </label>
+        <label>Page number
+          <input type="number" name="page" min="1" required />
+        </label>
+        <label>Text
+          <textarea name="text" rows="3" required></textarea>
+        </label>
+        <div class="inline-2">
+          <label>X
+            <input type="number" name="x" step="0.1" required />
+          </label>
+          <label>Y
+            <input type="number" name="y" step="0.1" required />
+          </label>
+        </div>
+        <div class="inline-2">
+          <label>Font size
+            <input type="number" name="font_size" step="0.5" value="12" />
+          </label>
+          <label>Color
+            <input type="color" name="color" value="#000000" />
+          </label>
+        </div>
+        <button type="submit">Insert Text</button>
+      </form>
+    </template>
+
+    <template id="tpl-replace-text">
+      <form class="tool-form" data-endpoint="/api/replace-text" data-tool-name="Find and Replace Text">
+        <p class="hint">Choose a PDF here, or leave blank to use Workspace source.</p>
+        <label>PDF file (optional)
+          <input type="file" name="file" accept="application/pdf" />
+        </label>
+        <label>Search text
+          <input type="text" name="search_text" required />
+        </label>
+        <label>Replace with
+          <input type="text" name="replace_text" required />
+        </label>
+        <button type="submit">Replace Text</button>
+      </form>
+    </template>
+
+    <template id="tpl-watermark">
+      <form class="tool-form" data-endpoint="/api/watermark" data-tool-name="Add Watermark">
+        <p class="hint">Choose a PDF here, or leave blank to use Workspace source.</p>
+        <label>PDF file (optional)
+          <input type="file" name="file" accept="application/pdf" />
+        </label>
+        <label>Watermark text
+          <input type="text" name="text" required />
+        </label>
+        <div class="inline-3">
+          <label>Font size
+            <input type="number" name="font_size" value="32" min="1" />
+          </label>
+          <label>Density (1-8)
+            <input type="number" name="density" min="1" max="8" value="3" />
+          </label>
+          <label>Shade (0-1)
+            <input type="number" name="shade" min="0" max="1" step="0.05" value="0.75" />
+          </label>
+        </div>
+        <button type="submit">Apply Watermark</button>
+      </form>
+    </template>
+
+    <template id="tpl-page-numbers">
+      <form class="tool-form" data-endpoint="/api/page-numbers" data-tool-name="Add Page Numbers">
+        <p class="hint">Choose a PDF here, or leave blank to use Workspace source.</p>
+        <label>PDF file (optional)
+          <input type="file" name="file" accept="application/pdf" />
+        </label>
+        <div class="inline-2">
+          <label>Position
+            <select name="position">
+              <option value="bottom-right">Bottom Right</option>
+              <option value="bottom-center">Bottom Center</option>
+              <option value="bottom-left">Bottom Left</option>
+              <option value="top-right">Top Right</option>
+              <option value="top-center">Top Center</option>
+              <option value="top-left">Top Left</option>
+            </select>
+          </label>
+          <label>Font size
+            <input type="number" name="font_size" step="0.5" value="12" min="1" />
+          </label>
+        </div>
+        <button type="submit">Number Pages</button>
+      </form>
+    </template>
+
+    <template id="tpl-crop">
+      <form class="tool-form" data-endpoint="/api/crop" data-tool-name="Crop Pages">
+        <p class="hint">Choose a PDF here, or leave blank to use Workspace source.</p>
+        <label>PDF file (optional)
+          <input type="file" name="file" accept="application/pdf" />
+        </label>
+        <label>Pages (blank = all)
+          <input type="text" name="pages" placeholder="1,2,5" />
+        </label>
+        <div class="inline-2">
+          <label>X0
+            <input type="number" name="x0" step="0.1" required />
+          </label>
+          <label>Y0
+            <input type="number" name="y0" step="0.1" required />
+          </label>
+        </div>
+        <div class="inline-2">
+          <label>X1
+            <input type="number" name="x1" step="0.1" required />
+          </label>
+          <label>Y1
+            <input type="number" name="y1" step="0.1" required />
+          </label>
+        </div>
+        <button type="submit">Crop</button>
+      </form>
+    </template>
+
+    <template id="tpl-pdf-to-images">
+      <form class="tool-form" data-endpoint="/api/pdf-to-images" data-tool-name="PDF to Images" data-output-kind="zip">
+        <p class="hint">Choose a PDF here, or leave blank to use Workspace source.</p>
+        <label>PDF file (optional)
+          <input type="file" name="file" accept="application/pdf" />
+        </label>
+        <label>Pages (blank = all)
+          <input type="text" name="pages" placeholder="1-4" />
+        </label>
+        <div class="inline-2">
+          <label>Format
+            <select name="fmt">
+              <option value="png">PNG</option>
+              <option value="jpg">JPG</option>
+            </select>
+          </label>
+          <label>DPI
+            <input type="number" name="dpi" min="72" max="600" value="150" />
+          </label>
+        </div>
+        <button type="submit">Convert to ZIP</button>
+      </form>
+    </template>
+
+    <template id="tpl-images-to-pdf">
+      <form class="tool-form" data-endpoint="/api/images-to-pdf" data-tool-name="Images to PDF" data-no-source-fallback="true">
+        <p class="hint">Select one or more images. Their order becomes the PDF page order.</p>
+        <label>Image files
+          <input type="file" name="files" accept="image/*" multiple required />
+        </label>
+        <button type="submit">Create PDF</button>
+      </form>
+    </template>
+
+    <template id="tpl-encrypt">
+      <form class="tool-form" data-endpoint="/api/encrypt" data-tool-name="Encrypt PDF">
+        <p class="hint">Choose a PDF here, or leave blank to use Workspace source.</p>
+        <label>PDF file (optional)
+          <input type="file" name="file" accept="application/pdf" />
+        </label>
+        <label>User password
+          <input type="password" name="user_password" required />
+        </label>
+        <label>Owner password (optional)
+          <input type="password" name="owner_password" />
+        </label>
+        <label class="checkbox-row">
+          <input type="checkbox" name="allow_print" value="true" checked />
+          Allow print
+        </label>
+        <label class="checkbox-row">
+          <input type="checkbox" name="allow_copy" value="true" />
+          Allow copy
+        </label>
+        <button type="submit">Encrypt</button>
+      </form>
+    </template>
+
+    <template id="tpl-decrypt">
+      <form class="tool-form" data-endpoint="/api/decrypt" data-tool-name="Decrypt PDF">
+        <p class="hint">Choose an encrypted PDF here, or leave blank to use Workspace source.</p>
+        <label>PDF file (optional)
+          <input type="file" name="file" accept="application/pdf" />
+        </label>
+        <label>Password
+          <input type="password" name="password" required />
+        </label>
+        <button type="submit">Decrypt</button>
+      </form>
+    </template>
+
+    <template id="tpl-metadata">
+      <form class="tool-form" data-endpoint="/api/metadata" data-tool-name="Update Metadata">
+        <p class="hint">Choose a PDF here, or leave blank to use Workspace source.</p>
+        <label>PDF file (optional)
+          <input type="file" name="file" accept="application/pdf" />
+        </label>
+        <label>Title
+          <input type="text" name="title" />
+        </label>
+        <label>Author
+          <input type="text" name="author" />
+        </label>
+        <label>Subject
+          <input type="text" name="subject" />
+        </label>
+        <label>Keywords
+          <input type="text" name="keywords" placeholder="pdf,editor,project" />
+        </label>
+        <button type="submit">Update Metadata</button>
+      </form>
+    </template>
+
+    <template id="tpl-optimize">
+      <form class="tool-form" data-endpoint="/api/optimize" data-tool-name="Optimize File Size">
+        <p class="hint">Choose a PDF here, or leave blank to use Workspace source.</p>
+        <label>PDF file (optional)
+          <input type="file" name="file" accept="application/pdf" />
+        </label>
+        <button type="submit">Optimize</button>
+      </form>
+    </template>
+
+    <script src="/app.js"></script>
+  </body>
+</html>
